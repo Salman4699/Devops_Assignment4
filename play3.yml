@@ -1,0 +1,29 @@
+---
+
+ - name: Play 3
+   hosts: dbserver
+   tasks:
+
+   - name: Install sql
+     apt:
+      name: postgresql
+      state: present
+     become: yes
+
+   - name: launch and activate sql  service
+     service:
+      name: postgresql
+      state: started
+      enabled: yes
+     become: yes
+
+   - name: Install pgAdmin Client
+     apt:
+      name: pgadmin4
+      state: present
+     become: yes
+
+   - name: Connect to database with pgAdmin
+     uri:
+      url: http://localhost/
+      return_content: yes

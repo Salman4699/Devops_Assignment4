@@ -1,0 +1,26 @@
+---
+
+ - name: playbook 1
+   hosts: all
+   become: true
+   tasks:
+
+   - name: ping servers configuration
+     action: ping
+
+   - name: Output System configurations
+     shell: free -m
+     register: ram_usage
+
+   - name: Print RAM logs
+     debug:
+       var: ram_usage
+
+   - name: apt update
+     apt:
+      update_cache: true
+
+   - name: Download Git
+     apt:
+       name: git
+       state: present
